@@ -14,7 +14,7 @@ public class SpawnFood : MonoBehaviour
     public Transform borderRight;
 
     private static int foodCount = 0;
-    private const int maxFoodCountInScene = 4;
+    private const int maxFoodCountInScene = 10;
 
     public static void EatOne()
     {
@@ -27,7 +27,7 @@ public class SpawnFood : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        InvokeRepeating("Spawn", 3, 4);
+        InvokeRepeating("Spawn", 2, 3);
     }
 
     private void Spawn()

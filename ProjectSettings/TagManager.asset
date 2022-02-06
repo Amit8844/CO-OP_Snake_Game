@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Border
   - Tail
+  - Tail2
   layers:
   - Default
   - TransparentFX
