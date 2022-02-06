@@ -1,15 +1,14 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 
-public class Snake : MonoBehaviour
-{
-    private static long intialLen = 1;
+public class Snake2 : MonoBehaviour
+{ private static long intialLen = 1;
     public static long length = intialLen;
 
-    Vector2 direction = Vector2.left;
+    Vector2 direction = Vector2.right;
     List<Transform> tail = new List<Transform>();
 
     bool ate = true;
@@ -29,19 +28,19 @@ public class Snake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.D)&& direction!= Vector2.left)
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             direction = Vector2.right;
         }
-        else if (Input.GetKey(KeyCode.S)&& direction!= Vector2.up)
+        else if (Input.GetKey(KeyCode.DownArrow))
         {
             direction = Vector2.down;
         }
-        else if (Input.GetKey(KeyCode.A)&& direction!= Vector2.right)
+        else if (Input.GetKey(KeyCode.LeftArrow))
         {
             direction = Vector2.left;
         }
-        else if (Input.GetKey(KeyCode.W)&& direction!= Vector2.down)
+        else if (Input.GetKey(KeyCode.UpArrow))
         {
             direction = Vector2.up;
         }
@@ -69,32 +68,11 @@ public class Snake : MonoBehaviour
             tail.RemoveAt(tail.Count - 1);
         }
     }
-    private void ScreenWrap(Collider2D collision)
-    {
-        if ( direction == Vector2.right )
-        {
-            this.transform.position = new Vector3((-1 * collision.transform.position.x) + 1, this.transform.position.y, 0f);
-        }
-        else if (direction == Vector2.left)
-        {
-            this.transform.position = new Vector3((-1 * collision.transform.position.x) -1, this.transform.position.y, 0f);
-        }
-        else if (direction == Vector2.up)
-        {
-            this.transform.position = new Vector3(this.transform.position.x ,(-1 * collision.transform.position.y)+1, 0f);
-        }
-        else if (direction == Vector2.down)
-        {
-            this.transform.position = new Vector3(this.transform.position.x, (-1 * collision.transform.position.y)-1, 0f);
-        }
-
-    }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("OnTriggerEnter2D");
-        //CAN BE IMPROVE WITH TAG PROPERTY
+        
         if (collision.name.StartsWith("Food"))
         {
             ate = true;
@@ -105,19 +83,14 @@ public class Snake : MonoBehaviour
         {
             Instantiate(deathParticles,transform.position,Quaternion.identity);
             GameController.FailGame();
-            //TODO:YOU LOSE SCREEN
+            
         }
         else if (collision.tag.Contains("Tail"))
          {
              Instantiate(deathParticles,transform.position,Quaternion.identity);
             GameController.FailGame();
-            //TODO:YOU LOSE SCREEN
+            
         }
-        else if (collision.tag == "wall")
-        {
-            ScreenWrap(collision);
-        }
-
-       
     }
+   
 }
